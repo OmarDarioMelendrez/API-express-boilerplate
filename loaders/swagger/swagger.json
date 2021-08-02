@@ -1,0 +1,228 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API Rest base repo.",
+      "description": "## This is a base api to start new projects.",
+      "version": "0.0.1",
+      "contact": {
+        "email": "melendrezomar2@gmail.com"
+      }
+    },
+    
+    "servers":[
+      {
+        "url":"http://localhost:3000/api/v1",
+        "description": "Desarrollo"  
+      },
+      {
+        "url":"https://www.some.com/api/v1",
+        "description": "Producción"  
+      } 
+    ],
+    "tags": [    
+      {
+        "name": "users",
+        "description": "Operations about users."
+      },
+      {
+        "name": "observations",
+        "description": "Operations about observations."
+      }
+    ],
+    "paths": {    
+      "/users/": {
+        "get": {
+          "tags": [
+            "users"
+          ],
+          "summary": "Get a list of all existing users.",
+          "description": "Returns all the users.",             
+          "responses": {
+            "200": {
+              "description": "The array of users in JSON format.",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "type": "array",
+                    "items":{
+                      "$ref": "#/components/schemas/User"                    
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "users"
+          ],
+          "summary": "Create a new user.",
+          "description": "",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "User created."
+            }
+          }
+        }
+      },
+      "/users/{id}": {
+        "put": {
+          "tags": [
+            "users"
+          ],
+          "summary": "Update an existing user by providing the id.",
+          "description": "",           
+          "parameters":[          
+            {
+              "name": "id",
+              "in": "path",
+              "description": "The id of the user that needs to be updated.",
+              "required": true,
+              "schema": {
+                "type":"integer"
+              }
+            }          
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }, 
+          "responses": {
+            "200": {
+              "description": "The user updated",
+              "content":{
+                "application/json":{
+                  "schema":{
+                    "type": "object",
+                    "$ref": "#/components/schemas/User" 
+                  }
+                }              
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "users"
+          ],
+          "summary": "Delete an existing user by providing the id.",
+          "description": "",
+          "parameters":[          
+            {
+              "name": "id",
+              "in": "path",
+              "description": "The id of the user that needs to be deleted.",
+              "required": true,
+              "schema": {
+                "type":"integer"
+              }
+            }          
+          ],     
+          "responses": {
+            "200": {
+              "description": "User deleted."
+            }
+          }
+        }
+      },
+      "/observations/" : {
+        "get": {
+          "tags": [
+            "observations"
+          ],
+          "summary": "Get a list of all observations.",
+          "description": "",           
+          "parameters":[          
+            {
+              "name": "id",
+              "in": "path",
+              "description": "The id of the user that needs to be updated.",
+              "required": true,
+              "schema": {
+                "type":"integer"
+              }
+            }          
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }, 
+          "responses": {
+            "200": {
+              "description": "The user updated",
+              "content":{
+                "application/json":{
+                  "schema":{
+                    "type": "object",
+                    "$ref": "#/components/schemas/User" 
+                  }
+                }              
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "User": {
+          "required": [
+            "id"
+          ],
+          "type": "object",
+          "properties": {
+            "id":{
+              "description": "The user id.",
+              "type": "ObjectId",          
+              "example": "dasd15as5d1asd"
+            },
+            "name":{
+              "description": "The user name.",
+              "type":"string",          
+              "example":"Adrian"
+            }
+          }
+        },
+        "Observation": {
+          "required": [
+            "description",
+            "observationFrom",
+            "observationTo"
+          ],
+          "type": "object",
+          "properties": {
+            "id":{
+              "description": "The observation id.",
+              "type": "ObjectId",          
+              "example": "dasd15as5d1asd"
+            },
+            "description":{
+              "description": "The content of the observation.",
+              "type":"string",          
+              "example":"El paciente tiene signos de fatiga."
+            }
+          }
+        }
+      }
+    }
+  }
